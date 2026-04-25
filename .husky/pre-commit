@@ -1,0 +1,24 @@
+echo "Running pre-commit checks..."
+
+echo "Running Prettier format check..."
+npm run format:check
+if [ $? -ne 0 ]; then
+  echo "❌ Prettier check failed! Please run 'npm run format' to fix formatting."
+  exit 1
+fi
+
+echo "Running ESLint..."
+npm run lint
+if [ $? -ne 0 ]; then
+  echo "❌ ESLint found issues! Please fix them before committing."
+  exit 1
+fi
+
+echo "Running TypeScript type check..."
+npm run type-check
+if [ $? -ne 0 ]; then
+  echo "❌ Type check failed! Please fix TypeScript issues before committing."
+  exit 1
+fi
+
+echo "✅ All pre-commit checks passed!"
