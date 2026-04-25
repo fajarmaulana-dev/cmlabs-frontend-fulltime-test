@@ -1,4 +1,6 @@
-# 🍳 TastiFy — This Next.js Boilerplate is generated with AI
+# 🍳 TastiFy — This README is generated with AI
+
+Can be accesed at [fajars-tastify.vercel.app](fajars-tastify.vercel.app)
 
 > Recipe discovery app powered by [TheMealDB API](https://www.themealdb.com/api.php)
 
@@ -10,23 +12,18 @@
 tastify/
 ├── src/
 │   ├── app/                    # Next.js App Router pages & layouts
-│   │   ├── (root)/             # Route group for / (ingredients)
-│   │   ├── meals/
-│   │   │   └── [ingredient]/
-│   │   │       └── [mealId]/
-│   │   ├── favorites/
-│   │   └── about/
-│   ├── components/
-│   │   ├── ui/                 # Reusable atomic UI components
-│   │   └── features/           # Feature-specific components
-│   │       ├── ingredients/
-│   │       ├── meals/
-│   │       ├── favorites/
-│   │       └── about/
-│   ├── hooks/                  # Custom React hooks
-│   ├── lib/                    # Utilities, API clients, helpers
-│   ├── stores/                 # Zustand stores (favorites, toast)
-│   └── types/                  # TypeScript type definitions
+│   ├── components/             # Reusable atomic UI components (header, footer, modals)
+│   ├── constants/              # Global constants and environment variables
+│   ├── features/               # Feature-Sliced Design (FSD) modules
+│   │   ├── about/              # About page components and constants
+│   │   ├── favorites/          # Favorites logic, UI, and hooks
+│   │   ├── ingredients/        # Ingredient listing & filtering logic
+│   │   └── meals/              # Meals catalog & detail logic
+│   ├── hooks/                  # Global custom React hooks (debounce, infinite scroll)
+│   ├── services/               # API clients, server actions, and fetchers
+│   ├── stores/                 # Zustand global stores (favorites, toast)
+│   ├── types/                  # Global TypeScript definitions
+│   └── utils/                  # Utility functions (cn, metadata, parsers)
 ├── public/
 └── next.config.ts
 ```
@@ -165,4 +162,3 @@ Central type definitions for API responses and domain models.
 6. **`useCallback` / `useMemo`**: Used in list components to prevent child re-renders when parent state changes
    unrelated to list items.
 7. **`React.memo`**: Applied to `IngredientCard` and `MealCard` since they're rendered in large lists.
-8. **Route Group `(root)`**: Lets `/` share a layout without affecting URL structure.

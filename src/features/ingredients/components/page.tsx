@@ -49,7 +49,9 @@ export function Page({ ingredients }: Props) {
             priority
             alt="Ingredients"
             className="xs:h-48 xs:w-auto h-auto w-3/5 rounded-t-3xl sm:h-auto sm:w-full sm:rounded-l-none sm:rounded-r-3xl"
+            fetchPriority="high"
             height={400}
+            sizes="(max-width: 640px) 60vw, (max-width: 1024px) 50vw, 400px"
             src={`${CLOUDINARY_BASE}/ingredients_yhv3zr.avif`}
             width={400}
           />

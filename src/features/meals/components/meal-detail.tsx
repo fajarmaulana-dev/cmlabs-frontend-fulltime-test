@@ -28,6 +28,7 @@ export function MealDetail({ meal, ingredientSlug }: Props) {
     embedUrl,
     favorite,
     scrollToSection,
+    youtubeId,
   } = useMealDetail(meal, ingredientSlug)
   return (
     <div className="py-4" id="overview">
@@ -47,7 +48,9 @@ export function MealDetail({ meal, ingredientSlug }: Props) {
               priority
               alt={meal.strMeal}
               className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+              fetchPriority="high"
               height={400}
+              sizes="(max-width: 768px) 100vw, 50vw"
               src={meal.strMealThumb}
               width={400}
             />
@@ -116,6 +119,8 @@ export function MealDetail({ meal, ingredientSlug }: Props) {
                       alt={ingredient}
                       className="h-8 w-8 shrink-0 object-contain"
                       height={64}
+                      quality={60}
+                      sizes="32px"
                       src={`https://www.themealdb.com/images/ingredients/${encodeURIComponent(ingredient)}-Small.png`}
                       width={64}
                     />
@@ -161,9 +166,10 @@ export function MealDetail({ meal, ingredientSlug }: Props) {
                 <iframe
                   allowFullScreen
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  className="h-full w-full"
+                  className="h-full w-full border-0"
                   loading="lazy"
                   src={embedUrl}
+                  srcDoc={`<style>*{padding:0;margin:0;overflow:hidden}html,body{height:100%}img,span{position:absolute;width:100%;top:0;bottom:0;margin:auto;object-fit:cover}span{height:1.5em;text-align:center;font:48px/1.5 sans-serif;color:white;text-shadow:0 0 0.5em black;transition:transform 0.2s}a:hover span{transform:scale(1.1)}</style><a href="${embedUrl}"><img src="https://images.weserv.nl/?url=https://i.ytimg.com/vi_webp/${youtubeId}/sddefault.webp" alt="Video Tutorial"><span>▶</span></a>`}
                   title={`${meal.strMeal} tutorial`}
                 />
               </div>

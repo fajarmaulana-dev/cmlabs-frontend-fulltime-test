@@ -27,6 +27,7 @@ export const IngredientCard = memo(function IngredientCard({ ingredient }: Props
           containerClassName="w-14 h-14 rounded-xl shrink-0"
           height={56}
           priority={false}
+          quality={60}
           sizes="56px"
           src={imageUrl}
           width={56}

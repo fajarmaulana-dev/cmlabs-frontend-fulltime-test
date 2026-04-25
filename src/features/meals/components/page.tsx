@@ -56,6 +56,8 @@ export function Page({ meals, ingredientName, ingredientSlug }: Props) {
               alt={ingredientName}
               className="h-full w-full object-contain"
               height={96}
+              quality={60}
+              sizes="96px"
               src={`${INGREDIENT_IMAGE_BASE}/${encodeURIComponent(ingredientName)}.png`}
               width={96}
             />
@@ -77,7 +79,10 @@ export function Page({ meals, ingredientName, ingredientSlug }: Props) {
               priority
               alt={filtered[0].strMeal}
               className="rounded-tl-half h-full w-full rounded-bl-3xl object-cover"
+              fetchPriority="high"
               height={160}
+              quality={60}
+              sizes="(max-width: 640px) 0px, 160px"
               src={filtered[0].strMealThumb}
               width={160}
             />
@@ -99,13 +104,14 @@ export function Page({ meals, ingredientName, ingredientSlug }: Props) {
         <EmptyState noMeals={!meals} query={debouncedSearch} />
       ) : (
         <ul className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
-          {filtered.map(meal => (
+          {filtered.map((meal, index) => (
             <li key={meal.idMeal}>
               <MealCard
                 ingredientName={ingredientName}
                 ingredientSlug={ingredientSlug}
                 isFavorite={isFavorite(meal.idMeal)}
                 meal={meal}
+                priority={index === 0}
                 onToggleFavorite={() =>
                   toggleFavorite({
                     idMeal: meal.idMeal,

@@ -12,9 +12,16 @@ interface Props {
   ingredientName: string
   isFavorite: boolean
   onToggleFavorite: () => void
+  priority?: boolean
 }
 
-export const MealCard = memo(function MealCard({ meal, ingredientSlug, isFavorite, onToggleFavorite }: Props) {
+export const MealCard = memo(function MealCard({
+  meal,
+  ingredientSlug,
+  isFavorite,
+  onToggleFavorite,
+  priority,
+}: Props) {
   const href = useMemo(() => `/meals/${ingredientSlug}/${meal.idMeal}`, [ingredientSlug, meal.idMeal])
 
   return (
@@ -25,6 +32,8 @@ export const MealCard = memo(function MealCard({ meal, ingredientSlug, isFavorit
           alt={meal.strMeal}
           className="object-cover transition-transform duration-300 group-hover:scale-105"
           containerClassName="w-full h-full"
+          priority={priority}
+          quality={60}
           sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 20vw"
           src={meal.strMealThumb}
         />

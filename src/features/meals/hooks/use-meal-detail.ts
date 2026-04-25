@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 
 import { useFavoriteToggle } from '@/features/favorites/hooks/use-favorite-toggle'
-import { parseInstructions, parseMealIngredients, toYouTubeEmbed } from '@/utils/parse-meal'
+import { parseInstructions, parseMealIngredients } from '@/utils/parse-meal'
 
 import { TABS } from '../constants'
 
@@ -28,26 +28,35 @@ export function useMealDetail(meal: MealDetail, ingredientSlug: string) {
 
   const ingredients = parseMealIngredients(meal)
   const steps = parseInstructions(meal.strInstructions)
-  const embedUrl = toYouTubeEmbed(meal.strYoutube)
   const favorite = isFavorite(meal.idMeal)
 
-  useEffect(() => {
-    const handleScroll = () => {
-      const sections = TABS.map(tab => document.getElementById(tab.id)).filter(Boolean)
+  const youtubeId = meal.strYoutube?.match(/[?&]v=([^&]+)/)?.[1]
+  const embedUrl = youtubeId ? `https://www.youtube-nocookie.com/embed/${youtubeId}?autoplay=1` : null
 
-      let current = 'overview'
-      for (const section of sections) {
-        if (section) {
-          const rect = section.getBoundingClientRect()
-          if (rect.top <= 140) {
-            current = section.id
+  useEffect(() => {
+    let ticking = false
+    const handleScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const sections = TABS.map(tab => document.getElementById(tab.id)).filter(Boolean)
+
+          let current = 'overview'
+          for (const section of sections) {
+            if (section) {
+              const rect = section.getBoundingClientRect()
+              if (rect.top <= 140) {
+                current = section.id
+              }
+            }
           }
-        }
+          setActiveTab(prev => (prev !== current ? current : prev))
+          ticking = false
+        })
+        ticking = true
       }
-      setActiveTab(current)
     }
 
-    window.addEventListener('scroll', handleScroll)
+    window.addEventListener('scroll', handleScroll, { passive: true })
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
@@ -76,5 +85,6 @@ export function useMealDetail(meal: MealDetail, ingredientSlug: string) {
     embedUrl,
     favorite,
     scrollToSection,
+    youtubeId,
   }
 }
