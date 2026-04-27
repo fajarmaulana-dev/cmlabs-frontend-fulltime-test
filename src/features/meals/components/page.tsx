@@ -83,11 +83,11 @@ export function Page({ meals, ingredientName, ingredientSlug }: Props) {
               alt={filtered[0].strMeal}
               className="rounded-tl-half h-full w-full rounded-bl-3xl object-cover"
               fetchPriority="high"
-              height={160}
+              height={176}
               quality={60}
-              sizes="(max-width: 640px) 0px, 160px"
+              sizes="(max-width: 640px) 0px, 176px"
               src={filtered[0].strMealThumb}
-              width={160}
+              width={176}
             />
           </div>
         )}
