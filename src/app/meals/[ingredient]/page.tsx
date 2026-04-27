@@ -22,7 +22,7 @@ export async function generateMetadata({ params }: { params: Promise<{ ingredien
   const title = decoded.replace(/\b\w/g, l => l.toUpperCase())
 
   return buildMetadata({
-    title: `${title} recipes`,
+    title: `${title} Recipes`,
     description: `Discover delicious meals made with ${title}. Browse recipes, find your favorites, and start cooking.`,
     path: `/meals/${encodeURIComponent(decoded)}`,
     ogImage: `${INGREDIENT_IMAGE_BASE}/${encodeURIComponent(decoded)}.png`,

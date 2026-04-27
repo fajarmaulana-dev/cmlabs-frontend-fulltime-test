@@ -51,17 +51,19 @@ export function Page({ meals, ingredientName, ingredientSlug }: Props) {
       </div>
       <div className="mb-8 flex flex-col-reverse items-center justify-between overflow-hidden rounded-3xl bg-orange-50 sm:flex-row">
         <div className="flex flex-1 items-center gap-4 p-6 sm:p-10">
-          <div className="flex h-24 w-24 shrink-0 items-center justify-center rounded-full border border-orange-100 bg-white p-2 shadow-sm">
-            <Image
-              alt={ingredientName}
-              className="h-full w-full object-contain"
-              height={96}
-              quality={60}
-              sizes="96px"
-              src={`${INGREDIENT_IMAGE_BASE}/${encodeURIComponent(ingredientName)}.png`}
-              width={96}
-            />
-          </div>
+          {meals && (
+            <div className="flex h-24 w-24 shrink-0 items-center justify-center rounded-full border border-orange-100 bg-white p-2 shadow-sm">
+              <Image
+                alt={ingredientName}
+                className="h-full w-full object-contain"
+                height={96}
+                quality={60}
+                sizes="96px"
+                src={`${INGREDIENT_IMAGE_BASE}/${encodeURIComponent(ingredientName)}.png`}
+                width={96}
+              />
+            </div>
+          )}
           <div>
             <h1 className="xs:text-3xl mb-2 text-2xl font-bold text-slate-900 capitalize sm:text-4xl">
               {ingredientName}
