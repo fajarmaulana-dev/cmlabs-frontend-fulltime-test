@@ -26,10 +26,12 @@ const MealCard = ({ meal, ingredientSlug, isFavorite, onToggleFavorite, priority
           alt={meal.strMeal}
           className="object-cover transition-transform duration-300 group-hover:scale-105"
           containerClassName="w-full h-full"
-          priority={priority}
+          fetchPriority={priority ? 'high' : 'auto'}
+          preload={priority}
           quality={60}
           sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 20vw"
           src={meal.strMealThumb}
+          style={{ viewTransitionName: `meal-img-${meal.idMeal}` }}
         />
         <div className="absolute inset-0 bg-linear-to-t from-slate-900/60 via-transparent to-transparent" />
       </Link>

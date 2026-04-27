@@ -18,17 +18,16 @@ export function buildMetadata({
   ogImage?: string
   noIndex?: boolean
 }): Metadata {
-  const fullTitle = `${title} | ${SITE_NAME}`
   const url = `${SITE_URL}${path}`
   const image = ogImage ?? DEFAULT_OG_IMAGE
 
   return {
-    title: fullTitle,
+    title,
     description,
     metadataBase: new URL(SITE_URL),
     alternates: { canonical: url },
     openGraph: {
-      title: fullTitle,
+      title,
       description,
       url,
       siteName: SITE_NAME,
@@ -37,7 +36,7 @@ export function buildMetadata({
     },
     twitter: {
       card: 'summary_large_image',
-      title: fullTitle,
+      title,
       description,
       images: [image],
     },

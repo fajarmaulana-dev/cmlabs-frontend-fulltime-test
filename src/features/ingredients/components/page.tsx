@@ -46,7 +46,7 @@ export function Page({ ingredients }: Props) {
         </div>
         <div className="flex w-full justify-center sm:w-1/2 sm:justify-end lg:w-2/5">
           <Image
-            priority
+            preload
             alt="Ingredients"
             className="xs:h-48 xs:w-auto h-auto w-3/5 rounded-t-3xl sm:h-auto sm:w-full sm:rounded-l-none sm:rounded-r-3xl"
             fetchPriority="high"
@@ -77,9 +77,9 @@ export function Page({ ingredients }: Props) {
       ) : (
         <>
           <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-            {visible.map(ingredient => (
+            {visible.map((ingredient, index) => (
               <li key={ingredient.idIngredient}>
-                <IngredientCard ingredient={ingredient} />
+                <IngredientCard ingredient={ingredient} priority={index < 8} />
               </li>
             ))}
           </ul>

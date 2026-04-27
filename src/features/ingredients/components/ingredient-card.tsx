@@ -9,9 +9,10 @@ import { INGREDIENT_IMAGE_BASE } from '@/features/ingredients/constants'
 
 interface Props {
   ingredient: Ingredient
+  priority?: boolean
 }
 
-export const IngredientCard = ({ ingredient }: Props) => {
+export const IngredientCard = ({ ingredient, priority }: Props) => {
   const slug = ingredient.strIngredient.toLowerCase()
   const imageUrl = `${INGREDIENT_IMAGE_BASE}/${ingredient.strIngredient}-Small.png`
 
@@ -25,11 +26,13 @@ export const IngredientCard = ({ ingredient }: Props) => {
           alt={ingredient.strIngredient}
           className="h-full w-full object-contain"
           containerClassName="w-14 h-14 rounded-xl shrink-0"
+          fetchPriority={priority ? 'high' : 'auto'}
           height={56}
-          priority={false}
+          preload={priority}
           quality={60}
           sizes="56px"
           src={imageUrl}
+          style={{ viewTransitionName: `ing-img-${slug}` }}
           width={56}
         />
       </div>

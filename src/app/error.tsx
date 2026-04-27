@@ -12,7 +12,7 @@ export default function GlobalError({ error, reset }: { error: Error & { digest?
     showToast(error.message || 'An unexpected error occurred', 'error')
   }, [error, showToast])
   return (
-    <div className="flex min-h-[70vh] flex-col items-center justify-center gap-6 px-4 text-center">
+    <div className="flex min-h-[calc(100vh-64px)] flex-col items-center justify-center gap-6 px-4 text-center">
       <div className="text-5xl">⚠️</div>
       <h1 className="text-2xl font-bold text-slate-900">Something went wrong</h1>
       <p className="max-w-md text-slate-500">An unexpected error occurred. Please try again or return home.</p>

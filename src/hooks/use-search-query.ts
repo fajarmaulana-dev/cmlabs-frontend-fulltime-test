@@ -26,7 +26,11 @@ export function useSearchQuery() {
     }
 
     const query = params.toString()
-    router.replace(`${pathname}${query ? `?${query}` : ''}`, { scroll: false })
+    const currentQuery = searchParams.toString()
+
+    if (query !== currentQuery) {
+      router.replace(`${pathname}${query ? `?${query}` : ''}`, { scroll: false })
+    }
   }, [debouncedSearch, pathname, router, searchParams])
 
   useEffect(() => {

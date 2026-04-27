@@ -46,19 +46,20 @@ npx create-next-app@latest tastify \
 cd tastify
 ```
 
-### 2. Install Dependencies
+### 2. Install Dependencies (Using Bun)
 
 ```bash
+# Core (Next.js 16 Canary)
+bun add next@canary react@canary react-dom@canary
+
 # State management
-npm install zustand
+bun add zustand
 
-# Icons
-npm install lucide-react
+# UI & Icons
+bun add lucide-react nextjs-toploader
 
-# cn utility
-npm install clsx tailwind-merge
-
-# Tailwind v4 already included via create-next-app
+# Utilities
+bun add clsx tailwind-merge
 ```
 
 ### 3. Environment Variables
@@ -77,7 +78,7 @@ NEXT_PUBLIC_CLOUDINARY_BASE_URL=https://res.cloudinary.com/YOUR_CLOUD_NAME/image
 ### 4. Run Dev Server
 
 ```bash
-npm run dev
+bun dev
 ```
 
 ---
@@ -86,11 +87,11 @@ npm run dev
 
 | Page        | Path                           | Strategy                    | Reason                                                                                   |
 | ----------- | ------------------------------ | --------------------------- | ---------------------------------------------------------------------------------------- |
-| Ingredients | `/`                            | **SSG**                     | API returns ALL ingredients at once, static at build time. Search is client-side filter. |
-| Meals       | `/meals/[ingredient]`          | **ISR (revalidate: 3600)**  | Data per ingredient, can be stale for 1h, prerendered for popular ingredients            |
-| Meal Detail | `/meals/[ingredient]/[mealId]` | **ISR (revalidate: 86400)** | Recipe data rarely changes, heavy SEO value, cache aggressively                          |
-| Favorites   | `/favorites`                   | **CSR**                     | Entirely user-specific localStorage data, cannot be server-rendered                      |
-| About       | `/about`                       | **SSG**                     | Static content, no dynamic data                                                          |
+| Ingredients | `/`                            | **PPR (Instant Shell)**     | SSG data fetching with instant streaming UI via Cache Components.                        |
+| Meals       | `/meals/[ingredient]`          | **PPR + Hybrid (SSG/Dyn)**  | Pre-rendered for top 50 ingredients, on-demand for others. No blocking navigation.       |
+| Meal Detail | `/meals/[ingredient]/[mealId]` | **Dynamic + PPR**           | Always fresh data, but with instant loading skeleton via streaming.                      |
+| Favorites   | `/favorites`                   | **CSR**                     | Entirely user-specific localStorage data, rendered within a static shell.                |
+| About       | `/about`                       | **PPR (Static)**            | Fully static content served with the unified streaming model.                            |
 
 ---
 
@@ -125,9 +126,9 @@ Business-logic components scoped to a feature. These may use hooks and stores.
 | Hook             | Purpose                                          |
 | ---------------- | ------------------------------------------------ |
 | `useDebounce`    | Debounce search input (500ms)                    |
-| `useSearchQuery` | Sync search with URL ?search= param              |
+| `useSearchQuery` | Sync search with URL ?search= (loop-protected)   |
 | `useFavorites`   | Read/write favorites from Zustand + localStorage |
-| `useToast`       | Trigger toast notifications                      |
+| `useMealDetail`  | Logic for meal detail with IntersectionObserver  |
 
 ### `src/stores/` — Zustand Stores
 
@@ -153,12 +154,12 @@ Central type definitions for API responses and domain models.
 
 ## 🎯 Performance & Optimization Notes
 
-1. **SSG for Ingredients**: Build-time fetch means zero runtime latency for the heaviest list page.
-2. **ISR for Meals/Detail**: Pages revalidate in background; users always get fast cached response.
-3. **Image Optimization**: All images use `next/image` with `sizes` prop. Static assets (Cloudinary) are cached via CDN
-   headers.
-4. **Debounced Search**: 500ms debounce prevents re-render storms on keystrokes.
-5. **Zustand over Context**: Zustand avoids React context re-render cascades; only subscribed components re-render.
-6. **`useCallback` / `useMemo`**: Used in list components to prevent child re-renders when parent state changes
-   unrelated to list items.
-7. **`React.memo`**: Applied to `IngredientCard` and `MealCard` since they're rendered in large lists.
+1. **Next.js 16 Cache Components**: Enabled `cacheComponents: true` for unified Partial Prerendering (PPR).
+2. **Instant Navigation**: Integrated `nextjs-toploader` and standard `Suspense` boundaries for immediate visual feedback.
+3. **LCP Optimization**: 
+   - Uses `preload` (standard in Next.js 16) and `fetchPriority="high"` for above-the-fold images.
+   - Bypasses fade-in animations for prioritized images to satisfy LCP timing.
+4. **No Layout Thrashing**: Replaced scroll-event measurement with `IntersectionObserver` for active tab highlighting.
+5. **View Transitions**: Enabled native browser View Transitions API via `same-origin` meta tag.
+6. **Bun Runtime**: Fully migrated to Bun for faster installation and execution.
+7. **Infinite Loop Protection**: `useSearchQuery` includes query-string comparison to prevent navigation cycles.

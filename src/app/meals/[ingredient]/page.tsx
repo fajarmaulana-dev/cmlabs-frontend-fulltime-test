@@ -5,8 +5,6 @@ import { Page } from '@/features/meals/components/page'
 import { fetchAllIngredients, fetchMealsByIngredient } from '@/services/recipe'
 import { buildMetadata } from '@/utils/metadata'
 
-export const revalidate = 3600
-
 export async function generateStaticParams() {
   const data = await fetchAllIngredients()
   const ingredients = data.meals ?? []

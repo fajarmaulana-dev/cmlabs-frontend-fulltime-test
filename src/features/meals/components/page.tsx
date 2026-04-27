@@ -60,6 +60,7 @@ export function Page({ meals, ingredientName, ingredientSlug }: Props) {
                 quality={60}
                 sizes="96px"
                 src={`${INGREDIENT_IMAGE_BASE}/${encodeURIComponent(ingredientName)}.png`}
+                style={{ viewTransitionName: `ing-img-${ingredientSlug}` }}
                 width={96}
               />
             </div>
@@ -78,7 +79,7 @@ export function Page({ meals, ingredientName, ingredientSlug }: Props) {
         {filtered.length > 0 && (
           <div className="hidden h-full w-auto sm:block">
             <Image
-              priority
+              preload
               alt={filtered[0].strMeal}
               className="rounded-tl-half h-full w-full rounded-bl-3xl object-cover"
               fetchPriority="high"
@@ -113,7 +114,7 @@ export function Page({ meals, ingredientName, ingredientSlug }: Props) {
                 ingredientSlug={ingredientSlug}
                 isFavorite={isFavorite(meal.idMeal)}
                 meal={meal}
-                priority={index === 0}
+                priority={index < 4}
                 onToggleFavorite={() =>
                   toggleFavorite({
                     idMeal: meal.idMeal,

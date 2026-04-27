@@ -5,12 +5,6 @@ import { MealDetail } from '@/features/meals/components/meal-detail'
 import { fetchMealById } from '@/services/recipe'
 import { buildMetadata } from '@/utils/metadata'
 
-export const revalidate = 86400
-
-export async function generateStaticParams() {
-  return []
-}
-
 export async function generateMetadata({
   params,
 }: {

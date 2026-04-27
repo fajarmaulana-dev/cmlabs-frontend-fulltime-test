@@ -2,6 +2,7 @@ import './globals.css'
 
 import type { Metadata } from 'next'
 import { Geist } from 'next/font/google'
+import NextTopLoader from 'nextjs-toploader'
 import { Suspense } from 'react'
 
 import { Footer } from '@/components/footer'
@@ -24,17 +25,25 @@ export const metadata: Metadata = {
     type: 'website',
   },
   twitter: { card: 'summary_large_image' },
+  other: {
+    'view-transition': 'same-origin',
+  },
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html className={geist.variable} lang="en">
       <body className="flex min-h-screen flex-col bg-white pb-16 text-slate-900 antialiased sm:pb-0">
-        <Header />
+        <NextTopLoader color="#f97316" showSpinner={false} />
+        <Suspense fallback={<div className="h-16 bg-slate-900" />}>
+          <Header />
+        </Suspense>
         <main className="px-mobile md:px-desktop mx-auto w-full max-w-screen-xl flex-1 2xl:px-0">
           <Suspense fallback={<div className="h-screen" />}>{children}</Suspense>
         </main>
-        <Footer />
+        <Suspense fallback={null}>
+          <Footer />
+        </Suspense>
         <ToastContainer />
       </body>
     </html>

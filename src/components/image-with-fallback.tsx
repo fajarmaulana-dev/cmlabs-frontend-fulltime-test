@@ -23,7 +23,7 @@ export function ImageWithFallback({
   const [imgSrc, setImgSrc] = useState(src)
   const [error, setError] = useState(false)
   const [loaded, setLoaded] = useState(false)
-
+  const isPreload = props.preload === true
   return (
     <div className={cn('relative overflow-hidden bg-orange-50', containerClassName)}>
       {!loaded && !error && <div className="absolute inset-0 animate-pulse bg-orange-100" />}
@@ -35,7 +35,11 @@ export function ImageWithFallback({
       )}
       <Image
         alt={alt}
-        className={cn('transition-opacity duration-300', loaded && !error ? 'opacity-100' : 'opacity-0', className)}
+        className={cn(
+          'transition-opacity duration-300',
+          isPreload || (loaded && !error) ? 'opacity-100' : 'opacity-0',
+          className,
+        )}
         src={imgSrc}
         onError={() => {
           if (imgSrc !== fallbackSrc) {

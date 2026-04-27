@@ -34,30 +34,24 @@ export function useMealDetail(meal: MealDetail, ingredientSlug: string) {
   const embedUrl = youtubeId ? `https://www.youtube-nocookie.com/embed/${youtubeId}?autoplay=1` : null
 
   useEffect(() => {
-    let ticking = false
-    const handleScroll = () => {
-      if (!ticking) {
-        window.requestAnimationFrame(() => {
-          const sections = TABS.map(tab => document.getElementById(tab.id)).filter(Boolean)
+    const sections = TABS.map(tab => document.getElementById(tab.id)).filter(Boolean) as HTMLElement[]
 
-          let current = 'overview'
-          for (const section of sections) {
-            if (section) {
-              const rect = section.getBoundingClientRect()
-              if (rect.top <= 140) {
-                current = section.id
-              }
-            }
+    const observer = new IntersectionObserver(
+      entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            setActiveTab(entry.target.id)
           }
-          setActiveTab(prev => (prev !== current ? current : prev))
-          ticking = false
         })
-        ticking = true
-      }
-    }
+      },
+      {
+        rootMargin: '-140px 0px -70% 0px',
+        threshold: 0,
+      },
+    )
 
-    window.addEventListener('scroll', handleScroll, { passive: true })
-    return () => window.removeEventListener('scroll', handleScroll)
+    sections.forEach(section => observer.observe(section))
+    return () => observer.disconnect()
   }, [])
 
   const scrollToSection = (id: string) => {

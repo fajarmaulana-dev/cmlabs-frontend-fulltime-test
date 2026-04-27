@@ -5,7 +5,7 @@ import { fetchAllIngredients } from '@/services/recipe'
 import { buildMetadata } from '@/utils/metadata'
 
 export const metadata: Metadata = buildMetadata({
-  title: 'Find Ingredients',
+  title: 'Find Ingredients | TastyFy',
   description:
     'Browse 500+ ingredients and discover delicious meals you can make. Search by ingredient name and get inspired to cook something amazing.',
   path: '/',
