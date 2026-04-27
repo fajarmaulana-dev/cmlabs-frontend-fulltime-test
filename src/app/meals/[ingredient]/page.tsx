@@ -12,19 +12,20 @@ export async function generateStaticParams() {
   const ingredients = data.meals ?? []
 
   return ingredients.slice(0, 50).map(i => ({
-    ingredient: encodeURIComponent(i.strIngredient.toLowerCase()),
+    ingredient: i.strIngredient.toLowerCase(),
   }))
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ ingredient: string }> }): Promise<Metadata> {
   const { ingredient } = await params
   const decoded = decodeURIComponent(ingredient)
+  const title = decoded.replace(/\b\w/g, l => l.toUpperCase())
 
   return buildMetadata({
-    title: `${decoded} recipes`,
-    description: `Discover delicious meals made with ${decoded}. Browse recipes, find your favorites, and start cooking.`,
-    path: `/meals/${ingredient}`,
-    ogImage: `${INGREDIENT_IMAGE_BASE}/${ingredient}.png`,
+    title: `${title} recipes`,
+    description: `Discover delicious meals made with ${title}. Browse recipes, find your favorites, and start cooking.`,
+    path: `/meals/${encodeURIComponent(decoded)}`,
+    ogImage: `${INGREDIENT_IMAGE_BASE}/${encodeURIComponent(decoded)}.png`,
   })
 }
 

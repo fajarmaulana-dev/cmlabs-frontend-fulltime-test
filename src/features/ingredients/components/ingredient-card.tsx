@@ -12,7 +12,7 @@ interface Props {
 }
 
 export const IngredientCard = ({ ingredient }: Props) => {
-  const slug = encodeURIComponent(ingredient.strIngredient.toLowerCase())
+  const slug = ingredient.strIngredient.toLowerCase()
   const imageUrl = `${INGREDIENT_IMAGE_BASE}/${ingredient.strIngredient}-Small.png`
 
   return (
