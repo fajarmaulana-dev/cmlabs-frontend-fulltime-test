@@ -10,7 +10,7 @@ import { INGREDIENT_BATCH_SIZE } from '@/features/ingredients/constants'
 import { useInfiniteScroll } from '@/hooks/use-infinite-scroll'
 import { useSearchQuery } from '@/hooks/use-search-query'
 
-import { IngredientCard } from './ingredient-card'
+import IngredientCard from './ingredient-card'
 import { IngredientCardSkeleton } from './ingredient-card-skeleton'
 
 interface Props {

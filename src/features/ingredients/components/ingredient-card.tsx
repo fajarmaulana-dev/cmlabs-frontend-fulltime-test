@@ -11,7 +11,7 @@ interface Props {
   ingredient: Ingredient
 }
 
-export const IngredientCard = memo(function IngredientCard({ ingredient }: Props) {
+export const IngredientCard = ({ ingredient }: Props) => {
   const slug = encodeURIComponent(ingredient.strIngredient.toLowerCase())
   const imageUrl = `${INGREDIENT_IMAGE_BASE}/${ingredient.strIngredient}-Small.png`
 
@@ -55,4 +55,6 @@ export const IngredientCard = memo(function IngredientCard({ ingredient }: Props
       />
     </Link>
   )
-})
+}
+
+export default memo(IngredientCard)

@@ -1,5 +1,6 @@
 import { Metadata } from 'next'
 
+import { INGREDIENT_IMAGE_BASE } from '@/features/ingredients/constants'
 import { Page } from '@/features/meals/components/page'
 import { fetchAllIngredients, fetchMealsByIngredient } from '@/services/recipe'
 import { buildMetadata } from '@/utils/metadata'
@@ -23,6 +24,7 @@ export async function generateMetadata({ params }: { params: Promise<{ ingredien
     title: `${decoded} recipes`,
     description: `Discover delicious meals made with ${decoded}. Browse recipes, find your favorites, and start cooking.`,
     path: `/meals/${ingredient}`,
+    ogImage: `${INGREDIENT_IMAGE_BASE}/${ingredient}.png`,
   })
 }
 

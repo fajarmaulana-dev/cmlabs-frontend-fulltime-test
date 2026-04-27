@@ -15,17 +15,11 @@ interface Props {
   priority?: boolean
 }
 
-export const MealCard = memo(function MealCard({
-  meal,
-  ingredientSlug,
-  isFavorite,
-  onToggleFavorite,
-  priority,
-}: Props) {
+const MealCard = ({ meal, ingredientSlug, isFavorite, onToggleFavorite, priority }: Props) => {
   const href = useMemo(() => `/meals/${ingredientSlug}/${meal.idMeal}`, [ingredientSlug, meal.idMeal])
 
   return (
-    <div className="group relative overflow-hidden rounded-2xl border border-orange-100 bg-white shadow-sm transition-all duration-200 hover:border-orange-500/40 hover:shadow-lg hover:shadow-orange-500/5">
+    <div className="group relative h-full overflow-hidden rounded-2xl border border-orange-100 bg-white shadow-sm transition-all duration-200 hover:border-orange-500/40 hover:shadow-lg hover:shadow-orange-500/5">
       <Link className="relative block aspect-square" href={href}>
         <ImageWithFallback
           fill
@@ -49,4 +43,6 @@ export const MealCard = memo(function MealCard({
       </Link>
     </div>
   )
-})
+}
+
+export default memo(MealCard)

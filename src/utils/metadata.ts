@@ -1,9 +1,9 @@
 import type { Metadata } from 'next'
 
-import { SITE_URL } from '@/constants/env'
+import { CLOUDINARY_BASE, SITE_URL } from '@/constants/env'
 
 const SITE_NAME = 'TastiFy'
-const DEFAULT_OG_IMAGE = `${SITE_URL}/og-default.jpg`
+const DEFAULT_OG_IMAGE = `${CLOUDINARY_BASE}/ingredients_jdohzj.png`
 
 export function buildMetadata({
   title,

@@ -30,7 +30,7 @@ export async function generateMetadata({
 
   return buildMetadata({
     title: meal.strMeal,
-    description: `How to make ${meal.strMeal} - a ${meal.strArea} ${meal.strCategory} dish. Step-by-step instructions and ingredients.`,
+    description: `How to make ${meal.strMeal}, a ${meal.strArea} ${meal.strCategory} dish. Step-by-step instructions and ingredients.`,
     path: `/meals/${ingredient}/${mealId}`,
     ogImage: meal.strMealThumb,
   })

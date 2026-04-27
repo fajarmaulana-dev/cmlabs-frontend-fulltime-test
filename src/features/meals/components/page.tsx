@@ -12,7 +12,7 @@ import { useFavoriteToggle } from '@/features/favorites/hooks/use-favorite-toggl
 import { INGREDIENT_IMAGE_BASE } from '@/features/ingredients/constants'
 import { useSearchQuery } from '@/hooks/use-search-query'
 
-import { MealCard } from './meal-card'
+import MealCard from './meal-card'
 
 interface Props {
   meals: MealSummary[] | null
