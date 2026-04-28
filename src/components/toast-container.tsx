@@ -24,7 +24,7 @@ export function ToastContainer() {
     <div
       aria-atomic="false"
       aria-live="polite"
-      className="pointer-events-none fixed right-6 bottom-6 z-999 flex flex-col gap-3"
+      className="pointer-events-none fixed right-6 bottom-6 z-999 flex max-w-[calc(100%-48px)] flex-col gap-3"
     >
       {toasts.map(toast => {
         const Icon = icons[toast.type]
@@ -34,7 +34,7 @@ export function ToastContainer() {
             className={cn(
               'pointer-events-auto flex items-center gap-3 rounded-xl border px-4 py-3 shadow-xl',
               'animate-in slide-in-from-right-4 duration-300',
-              'max-w-95 min-w-70',
+              'max-w-95 min-w-60',
               colors[toast.type],
             )}
           >
