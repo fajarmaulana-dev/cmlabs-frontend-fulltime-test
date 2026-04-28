@@ -16,7 +16,7 @@ export const FEATURES = [
     icon: Zap,
     title: 'Blazing Fast',
     description:
-      'Built with Next.js App Router. Pages are statically generated or incrementally revalidated for instant loads.',
+      'Built with Next.js App Router. Pages are rendered on the server with streaming for optimal performance and SEO.',
   },
   {
     icon: Globe,
@@ -26,7 +26,7 @@ export const FEATURES = [
 ]
 
 export const TECH_STACK = [
-  { name: 'Next.js 15', description: 'App Router, SSG/ISR' },
+  { name: 'Next.js 15', description: 'App Router, Server Components & Dynamic Rendering' },
   { name: 'TypeScript', description: 'End-to-end type safety' },
   { name: 'Tailwind CSS v4', description: 'Utility-first styling' },
   { name: 'Zustand', description: 'Lightweight state management' },
